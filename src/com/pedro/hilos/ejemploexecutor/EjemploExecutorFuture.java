@@ -1,11 +1,9 @@
 package com.pedro.hilos.ejemploexecutor;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class EjemploExecutorFuture {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -18,9 +16,18 @@ public class EjemploExecutorFuture {
                 Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
+            System.out.println("Finalizada la tarea.");
         };
-        executorService.submit(tarea);
+        Future<?> resultado = executorService.submit(tarea);
         executorService.shutdown();
         System.out.println("Continuando con el metodo main 1...");
+
+        //System.out.println(resultado.isDone());
+        while (!resultado.isDone()){
+            System.out.println("Ejecutando la tarea.");
+            TimeUnit.MILLISECONDS.sleep(1500);
+        }
+        System.out.println(resultado.get(5, TimeUnit.SECONDS));
+        System.out.println(resultado.isDone());
     }
 }

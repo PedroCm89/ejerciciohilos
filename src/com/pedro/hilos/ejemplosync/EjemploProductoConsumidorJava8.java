@@ -9,27 +9,26 @@ public class EjemploProductoConsumidorJava8 {
     public static void main(String[] args) {
         Panaderia p = new Panaderia();
 
-        new Thread(() -> {
-            for (int i = 0; i <= 10; i++) {
-                p.hornear("Pan nª: " + i);
+        new Thread( () -> {
+            for(int i = 0; i < 10; i++){
+                p.hornear("Pan nº: " + i);
                 try {
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 1000));
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
         }).start();
 
-        new Thread(() -> {
-            for (int i = 0; i <= 0; i++) {
+        new Thread( () -> {
+            for(int i = 0 ; i < 10; i++){
                 p.consumir();
                 try {
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(200,500));
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
         }).start();
-
     }
 }

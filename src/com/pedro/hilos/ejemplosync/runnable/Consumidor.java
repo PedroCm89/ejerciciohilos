@@ -3,7 +3,6 @@ package com.pedro.hilos.ejemplosync.runnable;
 import com.pedro.hilos.ejemplosync.Panaderia;
 
 public class Consumidor implements Runnable{
-
     private Panaderia panaderia;
 
     public Consumidor(Panaderia panaderia) {
@@ -12,8 +11,10 @@ public class Consumidor implements Runnable{
 
     @Override
     public void run() {
-        for(int i=0;i<=0;i++){
+        for(int i = 0 ; i < 10; i++){
             panaderia.consumir();
         }
     }
+
+
 }

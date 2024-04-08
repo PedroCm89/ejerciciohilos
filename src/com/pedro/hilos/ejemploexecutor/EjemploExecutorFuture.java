@@ -7,7 +7,7 @@ public class EjemploExecutorFuture {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        Runnable tarea =()->{
+        Callable<String> tarea =()->{
             System.out.println("Inicio de tarea...");
             try {
                 System.out.println(Thread.currentThread().getName());
@@ -17,8 +17,9 @@ public class EjemploExecutorFuture {
                 e.printStackTrace();
             }
             System.out.println("Finalizada la tarea.");
+            return "Algun resultado importante de la tarea";
         };
-        Future<?> resultado = executorService.submit(tarea);
+        Future<String> resultado = executorService.submit(tarea);
         executorService.shutdown();
         System.out.println("Continuando con el metodo main 1...");
 
@@ -27,7 +28,7 @@ public class EjemploExecutorFuture {
             System.out.println("Ejecutando la tarea.");
             TimeUnit.MILLISECONDS.sleep(1500);
         }
-        System.out.println(resultado.get(5, TimeUnit.SECONDS));
+        System.out.println(resultado.get());
         System.out.println(resultado.isDone());
     }
 }
